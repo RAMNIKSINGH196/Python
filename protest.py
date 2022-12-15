@@ -1,5 +1,6 @@
 import requests
 import json
+import re
 request_name=input("Enter your name:")
 data = []
 data3 = []
@@ -194,10 +195,15 @@ for element in range(len(data8)):
 
 data11 = (str(data10))
 
-special=")(,''"
+special="(,''"
 for i in special:
 	data11=data11.replace(i,"")
 print(data11)
+
+data12 = re.sub('\)', "\n",data11)
+print(data12)
+print(type(data12))
+
 
 url = "https://ramnik196.atlassian.net/rest/api/2/issue"
 headers = {
@@ -209,10 +215,10 @@ payload=json.dumps(
     "fields": {
        "project":
        {
-          "key": "VEERU"
+          "key": "RAMNIKS"
        },
        "summary": request,
-       "description": data11,
+       "description": data12,
        "components": [
         {
          "name": "access"
@@ -227,5 +233,9 @@ payload=json.dumps(
    }
 }
 )
-response=requests.post(url,headers=headers,data=payload,auth=("singhramnik111@gmail.com","ZhCcVOE4G5EGyNK2vKqx9BBF"))
+response=requests.post(url,headers=headers,data=payload,auth=("singhramnik111@gmail.com","xNTwiptw6Wx84nWDtPYOFC51"))
 print(response.text)
+file= open('response.text', 'w')
+file.write(response.text)
+file.close()
+
