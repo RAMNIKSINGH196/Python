@@ -42,7 +42,7 @@ while True:
         else:
                 print("YOU HAVE NOT MENTIONED THE DESCRIPTION\n")
                 break
-#name1= workitems
+
 pat = 'f7xp6dlcjgw7rhphw5yzrh2ntpla6qappy2b7qjiknzcgv4nneqq'
 authorization = str(base64.b64encode(bytes(':'+pat, 'ascii')), 'ascii')
 headers = {
@@ -50,7 +50,7 @@ headers = {
     'Authorization': 'Basic '+authorization
 }
 response = requests.get(
-    url="https://dev.azure.com/singhramnik111/c6dd43da-daec-48d8-a5f9-27f11dfebba6/_apis/git/repositories/87c4405d-b122-4b60-a9f5-3c603d9d2b95/pullRequests/" + name  + "workitems",  headers=headers)
+    url="https://dev.azure.com/singhramnik111/c6dd43da-daec-48d8-a5f9-27f11dfebba6/_apis/git/repositories/87c4405d-b122-4b60-a9f5-3c603d9d2b95/pullRequests/" + name  + "/workitems",  headers=headers)
 data55= response.json()
 
 count=data55["count"]
