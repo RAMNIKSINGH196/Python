@@ -1,8 +1,9 @@
 import requests
 import json
 import base64
+import re
 while True:
-	name= input("Enter the pull request ID: ")
+	name= input("Enter the pull request ID:: ")
 	pat = 'f7xp6dlcjgw7rhphw5yzrh2ntpla6qappy2b7qjiknzcgv4nneqq'
 	authorization = str(base64.b64encode(bytes(':'+pat, 'ascii')), 'ascii')
 	headers = {
@@ -24,24 +25,21 @@ description=data["description"]
 
 data10= (len(title))
 
-
 while True:
         if data10 == 17:
-                print("THE TITLE " + title + " IS CORRECT\n")
+                print("\n ============================================================ \n THE TITLE " + title + " IS CORRECT \n ============================================================")
                 break
         else:
-                print("THE TITLE " + title + " IS INNCORRECT\n")
+                print("============================================================ \n THE TITLE " + title + " IS INNCORRECT \n ============================================================")
                 break
 
-data11= (len(description))
+special= re.compile('#')
 
-while True:
-        if data11 > 1:
-                print("FOLLOWING IS THE DESCRIPTION\n", description + "\n")
-                break
-        else:
-                print("YOU HAVE NOT MENTIONED THE DESCRIPTION\n")
-                break
+if(special.search(description) == None):
+	print("DESCRIPTION:: \n" + "\n" + description + "\n ============================================================")
+else:
+        print("DESCRIPTION:: \n" + "\n" + description + "\n" + "\n NOTE= YOU HAVE MENTIONED THE # SO IF YOU DON'T NEED THEN PLEASE EDIT THE DESCRIPTION AND REMOVE IT \n ============================================================")
+
 
 pat = 'f7xp6dlcjgw7rhphw5yzrh2ntpla6qappy2b7qjiknzcgv4nneqq'
 authorization = str(base64.b64encode(bytes(':'+pat, 'ascii')), 'ascii')
@@ -53,13 +51,29 @@ response = requests.get(
     url="https://dev.azure.com/singhramnik111/c6dd43da-daec-48d8-a5f9-27f11dfebba6/_apis/git/repositories/87c4405d-b122-4b60-a9f5-3c603d9d2b95/pullRequests/" + name  + "/workitems",  headers=headers)
 data55= response.json()
 
+data77=data55["value"]
+
 count=data55["count"]
 
-while True:
-        if count == 1:
-                print("THE WORK ITEM HAS BEEN ATTACHED\n")
-                break
-        else:
-                print("THE WORK ITEM HAS NOT ATTACHED\n")
-                break
+
+if count == 1:
+	data78= (str(data77))
+	x = data78.split()
+	data79= (x[3])
+	data81= data79.replace("'", "").replace("}","").replace("]","")
+	pat = 'f7xp6dlcjgw7rhphw5yzrh2ntpla6qappy2b7qjiknzcgv4nneqq'
+	authorization = str(base64.b64encode(bytes(':'+pat, 'ascii')), 'ascii')
+	headers = {
+		'Accept': 'application/json',
+		'Authorization': 'Basic '+authorization
+	}
+	response = requests.get(
+		url=data81,  headers=headers)
+	data60= response.json()
+	data61=(data60["fields"])
+	data62=(data61["System.WorkItemType"])
+	print("THE WORK ITEM TYPE IS " + data62 + "\n ============================================================")		
+else:
+	print("THE WORK ITEM HAS NOT ATTACHED \n ============================================================")
+
 
